@@ -1,0 +1,9 @@
+[tool.poetry]
+name = "CBlockCrawler"
+version = "0.1.0"
+description = "Tool for extraction parts of C code and getting infomation about them"
+authors = ["Stepan Gulyaev <stepan.gulyaev.02@gmail.com>"]
+license = "MIT"
+packages = [
+    { include = "CBlockCrawler", from = "src" },
+]
