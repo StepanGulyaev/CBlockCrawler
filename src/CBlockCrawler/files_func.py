@@ -25,3 +25,23 @@ def rm_rf_dir ( removed_dir : str):
         shutil.rmtree(removed_dir)
     except Exception as e:
         print(f"Failed to remove directory '{removed_dir}': {e}")
+
+
+def check_if_block_in_file( src_file : str, block_start_regex : re.Pattern, block_end_regex : re.Pattern ):
+
+    inside_block = False
+    level = 0
+
+    with open(src_file, 'r') as file:
+        for line_number, line in enumerate(file, start=1):
+            if block_start_regex.search(line):
+                if not level:
+                    inside_block = True
+                level += 1
+            elif block_end_regex.search(line):
+                if inside_block:
+                    level -= 1
+                    if level == 0:
+                        inside_block = False
+                    return True
+    return False

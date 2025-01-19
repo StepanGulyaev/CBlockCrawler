@@ -1,22 +1,25 @@
 import re
 from pathlib import Path
 
-def class CBlock_datafile:
+class CBlock_datafile:
 
     def __init__(self, src_file : str, block_start_regex: re.Pattern, block_end_regex : re.Pattern):
         self.src_file = src_file
         self.block_start_regex = block_start_regex
         self.block_end_regex = block_end_regex
-        self.datafile = Path(src_file).with_suffix('cblock')
-        self.datafile_content = ''.join(__get_block_from_file(src_file,block_start_regex,block_end_regex))
 
+        datafile = Path(src_file)
+        self.datafile = datafile.with_suffix(f"{datafile.suffix}.cblock")
 
-    def __get_block_from_file( file_path : str, block_start_regex : re.Pattern, block_end_regex : re.Pattern ):
+        self.datafile_content = ''.join(self.__get_block_from_file(src_file,block_start_regex,block_end_regex))
+        
+
+    def __get_block_from_file(self, src_file : str, block_start_regex : re.Pattern, block_end_regex : re.Pattern ):
         inside_block = False
         level = 0
         lines = []
 
-        with open(file_path, 'r') as file:
+        with open(src_file, 'r') as file:
             for line_number, line in enumerate(file, start=1):
                 if block_start_regex.search(line):
                     if not level:
@@ -35,3 +38,7 @@ def class CBlock_datafile:
                         lines.append(f"{line_number} {line}")
         return lines
 
+    def touch_datafile(self):
+        with open(self.datafile, 'w') as datafile:
+            datafile.write(''.join(self.datafile_content))
+            
