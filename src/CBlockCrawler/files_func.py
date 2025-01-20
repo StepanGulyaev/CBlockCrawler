@@ -1,6 +1,7 @@
 import os
 import shutil
 import re
+from CBlockCrawler.cblock_datafile import CBlock_datafile
 
 def get_src_files( project_root : str ):
     src_files = []
@@ -12,7 +13,7 @@ def get_src_files( project_root : str ):
     return src_files
 
 def create_tmp_project_copy( project_dir : str ):
-    dir_name = "project_tmp_dir"
+    dir_name = "project_dir_tmp"
     dst = os.path.abspath(dir_name)
     try:
         shutil.copytree(project_dir, dst)
@@ -45,3 +46,13 @@ def check_if_block_in_file( src_file : str, block_start_regex : re.Pattern, bloc
                         inside_block = False
                     return True
     return False
+
+
+def get_datafiles( src_files : list, tmp_project_root : str , args):
+    datafiles = []
+    for file in src_files:
+        if check_if_block_in_file(file, args.block_start_regex, args.block_end_regex):
+            datafile = CBlock_datafile(file, tmp_project_root, args.block_start_regex ,args.block_end_regex)
+            datafiles.append(datafile)
+    return datafiles
+

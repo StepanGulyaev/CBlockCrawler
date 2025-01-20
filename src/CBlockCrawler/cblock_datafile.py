@@ -3,15 +3,16 @@ from pathlib import Path
 
 class CBlock_datafile:
 
-    def __init__(self, src_file : str, block_start_regex: re.Pattern, block_end_regex : re.Pattern):
-        self.src_file = src_file
+    def __init__(self, tmp_src_file : str, tmp_project_root : str, block_start_regex: re.Pattern, block_end_regex : re.Pattern):
+        self.src_file = tmp_src_file
+        self.tmp_project_root = tmp_project_root
         self.block_start_regex = block_start_regex
         self.block_end_regex = block_end_regex
 
-        datafile = Path(src_file)
+        datafile = Path(tmp_src_file)
         self.datafile = datafile.with_suffix(f"{datafile.suffix}.cblock")
 
-        self.datafile_content = ''.join(self.__get_block_from_file(src_file,block_start_regex,block_end_regex))
+        self.datafile_content = ''.join(self.__get_block_from_file(tmp_src_file,block_start_regex,block_end_regex))
         
 
     def __get_block_from_file(self, src_file : str, block_start_regex : re.Pattern, block_end_regex : re.Pattern ):

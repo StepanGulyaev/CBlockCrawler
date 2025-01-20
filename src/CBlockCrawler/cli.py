@@ -22,7 +22,12 @@ def parse_main_args():
                         type=str,
                         choices=['txt','csv'],
                         default='txt', 
-                        help="Output file format")
+                        help="Output file format") 
+    parser.add_argument('-S',
+                        '--save-tmp-files',
+                        action="store_true",
+                        default=False, 
+                        help="Save tmp files for debug purposes")
 
     return parser.parse_args()
 
