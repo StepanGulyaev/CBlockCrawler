@@ -28,7 +28,7 @@ class CBlock_handler:
 
     def __parse_block(self, block_text : list):
         #block_text = "1234 printf(\"Something good\n aaaa\");\n1235 char a = '\n';"
-        pattern = r'(?<!["\'])\n(?![^"\']*")'
+        pattern = r'\n(?![^"\']*")'
         block_lines = re.split(pattern, block_text) 
         return block_lines
 
