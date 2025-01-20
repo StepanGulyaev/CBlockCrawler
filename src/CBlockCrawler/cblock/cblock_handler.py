@@ -20,15 +20,19 @@ class CBlock_handler:
 
         block_id = 1
         for block_text in blocks_text:
-            block_lines = self.__parse_block(block_text)
-            print(block_lines)
             block_id += 1
-
-        #print(blocks_text)
+            block_lines = self.__parse_block(block_text)
+            start_line_num = self.__get_line_num(block_lines[0])
+            end_line_num = self.__get_line_num(block_lines[-1])
+             
 
     def __parse_block(self, block_text : list):
-        #block_text = "1234 printf(\"Something good\n aaaa\");\n1235 char a = '\n';"
         pattern = r'\n(?![^"\']*")'
         block_lines = re.split(pattern, block_text) 
         return block_lines
+ 
+    def __get_line_num(self, block_line : str):
+        pattern = r'^\d+'
+        return re.match(pattern,block_line).group()
+
 
