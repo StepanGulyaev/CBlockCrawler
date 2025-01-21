@@ -1,5 +1,11 @@
 import argparse
+import os
 from CBlockCrawler.regex import validate_regex
+
+def validate_path(path : str):
+    if not os.path.exists(path):
+        raise argparse.ArgumentTypeError(f"Path '{path}' doesn't exist")
+    return path
 
 def parse_main_args():
     parser = argparse.ArgumentParser()
@@ -12,7 +18,14 @@ def parse_main_args():
     parser.add_argument('-s','--block-start-regex', 
                         type=validate_regex,
                         required=True,
-                        help="Regex to recognize the start of an extracted code block")
+                        help="Regex to recognize the start of an extracted code block") 
+    parser.add_argument('-i','--inner-level-regex', 
+                        type=validate_regex,
+                        nargs='*',
+                        help="Regex used when inner blocks which have different start have the same ending as the start one.\
+                                For example preprocessor conditions may differ from start-regex but they all end with #endif. \
+                                If it happens and you didnt't specify inner-level regex, your block will be cut on inner #endif \
+                                instead of #endif of your block. Please consider that")
     parser.add_argument('-e','--block-end-regex', 
                         type=validate_regex,
                         required=True,
@@ -27,8 +40,16 @@ def parse_main_args():
                         '--save-tmp-files',
                         action="store_true",
                         default=False, 
-                        help="Save tmp files for debug purposes")
+                        help="Save tmp files for debug purposes") 
+    parser.add_argument('-l',
+                        '--libclang-file',
+                        type=validate_path,
+                        required=True,
+                        help="CBlockCrawler uses libclang to parse files and find borders of the functions. \
+                                Please provide .so or .dll")
 
+
+    
     return parser.parse_args()
 
 

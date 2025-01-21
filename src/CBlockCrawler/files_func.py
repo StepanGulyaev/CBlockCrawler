@@ -52,7 +52,11 @@ def get_datafiles( src_files : list, tmp_project_root : str , args):
     datafiles = []
     for file in src_files:
         if check_if_block_in_file(file, args.block_start_regex, args.block_end_regex):
-            datafile = CBlock_datafile(file, tmp_project_root, args.block_start_regex ,args.block_end_regex)
+            datafile = CBlock_datafile(file, tmp_project_root, args)
             datafiles.append(datafile)
     return datafiles
 
+def validate_path(path : str):
+    if not os.path.exists(path):
+        raise argparse.ArgumentTypeError(f"Path '{path}' doesn't exist")
+    return path
