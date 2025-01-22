@@ -32,7 +32,6 @@ class CBlock_handler:
     def __get_functions_inside(self, b_start_line_n : int ,b_end_line_n : int):
         functions_inside = []
         for func in self.src_functions_handler.functions:
-            print(func.name)
             if b_start_line_n <= func.start_line and func.end_line <= b_end_line_n:
                 functions_inside.append(func)
         return functions_inside

@@ -15,6 +15,9 @@ def get_src_files( project_root : str ):
 def create_tmp_project_copy( project_dir : str ):
     dir_name = "project_dir_tmp"
     dst = os.path.abspath(dir_name)
+    
+    if os.path.isdir(dst): rm_rf_dir(dst)
+
     try:
         shutil.copytree(project_dir, dst)
     except Exception as e:

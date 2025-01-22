@@ -41,14 +41,6 @@ def parse_main_args():
                         action="store_true",
                         default=False, 
                         help="Save tmp files for debug purposes") 
-    parser.add_argument('-l',
-                        '--libclang-file',
-                        type=validate_path,
-                        required=True,
-                        help="CBlockCrawler uses libclang to parse files and find borders of the functions. \
-                                Please provide .so or .dll")
-
-
     
     return parser.parse_args()
 
