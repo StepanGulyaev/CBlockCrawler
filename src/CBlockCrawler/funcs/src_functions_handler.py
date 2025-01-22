@@ -8,19 +8,14 @@ from CBlockCrawler.funcs.src_function import Src_function
 class Src_functions_handler:
     def __init__(self, src_file : str):
         self.src_file = src_file
-
         ctags_file = Path(src_file)
         self.ctags_file = ctags_file.with_suffix(f"{ctags_file.suffix}.ctags") 
-
         self.functions = self.__get_functions()
-        for func in self.functions:
-            print(func.name,func.start_line,func.end_line )
    
     def __get_functions(self):
         functions = []
         self.__touch_ctags_file()
         if os.stat(self.ctags_file).st_size == 0: return functions
-        print(self.src_file)
         with open(self.ctags_file,'r') as file:
             for line in file:
                 if line.strip():

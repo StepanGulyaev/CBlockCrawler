@@ -1,7 +1,6 @@
 import os
 import shutil
 import re
-from CBlockCrawler.cblock_datafile import CBlock_datafile
 
 def get_src_files( project_root : str ):
     src_files = []
@@ -29,35 +28,6 @@ def rm_rf_dir ( removed_dir : str):
         shutil.rmtree(removed_dir)
     except Exception as e:
         print(f"Failed to remove directory '{removed_dir}': {e}")
-
-
-def check_if_block_in_file( src_file : str, block_start_regex : re.Pattern, block_end_regex : re.Pattern ):
-
-    inside_block = False
-    level = 0
-
-    with open(src_file, 'r') as file:
-        for line_number, line in enumerate(file, start=1):
-            if block_start_regex.search(line):
-                if not level:
-                    inside_block = True
-                level += 1
-            elif block_end_regex.search(line):
-                if inside_block:
-                    level -= 1
-                    if level == 0:
-                        inside_block = False
-                    return True
-    return False
-
-
-def get_datafiles( src_files : list, tmp_project_root : str , args):
-    datafiles = []
-    for file in src_files:
-        if check_if_block_in_file(file, args.block_start_regex, args.block_end_regex):
-            datafile = CBlock_datafile(file, tmp_project_root, args)
-            datafiles.append(datafile)
-    return datafiles
 
 def validate_path(path : str):
     if not os.path.exists(path):

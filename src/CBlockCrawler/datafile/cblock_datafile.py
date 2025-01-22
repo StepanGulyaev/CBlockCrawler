@@ -10,11 +10,8 @@ class CBlock_datafile:
         self.block_start_regex = args.block_start_regex
         self.inner_level_regex = args.inner_level_regex
         self.block_end_regex = args.block_end_regex
-        
-
         datafile = Path(tmp_src_file)
         self.datafile = datafile.with_suffix(f"{datafile.suffix}.cblock")
-
         self.datafile_content = ''.join(self.__get_block_from_file())
         
 
