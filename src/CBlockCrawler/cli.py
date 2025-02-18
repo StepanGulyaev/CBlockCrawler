@@ -12,7 +12,7 @@ def parse_main_args():
 
     parser.add_argument('-p',
                         '--project-root',
-                        type=str, 
+                        type=validate_path, 
                         required=True, 
                         help="Root diriectory of a project where source files will be searched in")
     parser.add_argument('-s',
@@ -49,8 +49,12 @@ def parse_main_args():
                         '--save-tmp-files',
                         action="store_true",
                         default=False, 
-                        help="Save tmp files for debug purposes") 
-    
+                        help="Save tmp files for debug purposes")  
+    parser.add_argument('-c',
+                        '--coverage-file', 
+                        type=validate_path,
+                        required=False,
+                        help="Coverage.info file produced by llvm-cov export. Needed for block coverage calculation.")
     return parser.parse_args()
 
 

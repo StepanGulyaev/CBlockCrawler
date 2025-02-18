@@ -2,8 +2,6 @@ import os
 from CBlockCrawler.files_func import create_tmp_project_copy
 from CBlockCrawler.files_func import rm_rf_dir
 from CBlockCrawler.datafile.cblock_datafile_handler import CBlock_datafile_handler
-#from CBlockCrawler.cblock.cblock_handler import CBlock_handler
-#from CBlockCrawler.funcs.src_functions_handler import Src_functions_handler
 from CBlockCrawler.report.txt_report_generator import TXTReportGenerator
 from CBlockCrawler.report.html_report_generator import HTMLReportGenerator
 from CBlockCrawler.cli import parse_main_args
@@ -15,7 +13,7 @@ def execute_main():
     
     match main_args.format:
         case 'txt':
-            report_gen = TXTReportGenerator(datafile_handler,main_args.report_name)
+            report_gen = TXTReportGenerator(datafile_handler,main_args.report_name,main_args.coverage_file)
             report_gen.generate_report()
         case 'html':
             report_gen = HTMLReportGenerator(datafile_handler,main_args.report_name)

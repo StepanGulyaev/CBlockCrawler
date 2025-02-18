@@ -7,11 +7,12 @@ from CBlockCrawler.funcs.src_functions_handler import Src_functions_handler
 
 class CBlock_handler:
 
-    def __init__( self, cblock_datafile : CBlock_datafile, src_functions_handler : Src_functions_handler):
+    def __init__( self, cblock_datafile : CBlock_datafile, src_functions_handler : Src_functions_handler, coverage_collection : bool):
         self.cblock_datafile = cblock_datafile
         self.src_file_relpath = os.path.relpath(cblock_datafile.src_file, cblock_datafile.tmp_project_root)
         self.src_functions_handler = src_functions_handler
         self.blocks = self.__get_blocks()
+        self.coverage_collection = coverage_collection
         
     def __get_blocks(self):
         with open(self.cblock_datafile.datafile,'r') as datafile:
@@ -58,5 +59,5 @@ class CBlock_handler:
     def __get_line_num(self, block_line : str):
         pattern = r'^\d+'
         return int(re.match(pattern,block_line).group())
-
+    
 
