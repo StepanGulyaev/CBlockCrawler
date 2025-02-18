@@ -5,6 +5,7 @@ from CBlockCrawler.datafile.cblock_datafile_handler import CBlock_datafile_handl
 #from CBlockCrawler.cblock.cblock_handler import CBlock_handler
 #from CBlockCrawler.funcs.src_functions_handler import Src_functions_handler
 from CBlockCrawler.report.txt_report_generator import TXTReportGenerator
+from CBlockCrawler.report.html_report_generator import HTMLReportGenerator
 from CBlockCrawler.cli import parse_main_args
 
 def execute_main():
@@ -16,6 +17,10 @@ def execute_main():
         case 'txt':
             report_gen = TXTReportGenerator(datafile_handler,main_args.report_name)
             report_gen.generate_report()
+        case 'html':
+            report_gen = HTMLReportGenerator(datafile_handler,main_args.report_name)
+            report_gen.generate_report()
+
 
 
     #for datafile in datafile_handler.datafiles: 

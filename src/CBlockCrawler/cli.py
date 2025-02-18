@@ -42,7 +42,7 @@ def parse_main_args():
     parser.add_argument('-f',
                         '--format',
                         type=str,
-                        choices=['txt','csv'],
+                        choices=['txt','csv', 'html'],
                         default='txt', 
                         help="Cblock report format") 
     parser.add_argument('-S',
