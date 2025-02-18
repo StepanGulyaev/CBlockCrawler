@@ -16,7 +16,7 @@ def execute_main():
             report_gen = TXTReportGenerator(datafile_handler,main_args.report_name,main_args.coverage_file)
             report_gen.generate_report()
         case 'html':
-            report_gen = HTMLReportGenerator(datafile_handler,main_args.report_name)
+            report_gen = HTMLReportGenerator(datafile_handler,main_args.report_name,main_args.coverage_file)
             report_gen.generate_report()
 
 
