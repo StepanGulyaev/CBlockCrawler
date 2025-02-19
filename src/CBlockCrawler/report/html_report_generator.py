@@ -86,16 +86,16 @@ class HTMLReportGenerator(ReportGenerator):
 
         rows = []
 
-        for handler in self.cblock_handlers:
-            for i in range(len(handler.blocks)):
+        for one_file_records in self.all_records:
+            for i in range(len(one_file_records)):
                 row_data = "".join(
                     f"<td>{re.sub('"', '', re.sub(',', '<br>', value)) if idx == 4 else value}</td>"
-                    for idx, value in enumerate(handler.blocks[i].get_record())
+                    for idx, value in enumerate(one_file_records[i])
                 )
                 #logger.info(row_data)
                 rows.append(f"<tr>{row_data}</tr>")
                 
-                if i == len(handler.blocks) - 1:
+                if i == len(one_file_records) - 1:
                     rows.append(f"<tr class='divider-row'><td colspan='100%'>&nbsp;</td></tr>")
 
         table_body = "\n".join(rows)
