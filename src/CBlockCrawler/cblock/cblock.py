@@ -12,6 +12,7 @@ class CBlock:
         self.func_contain_block = func_contain_block
         self.block_lines = block_lines
         self.lines_covered = 0
+        self.coverage_percent = 0
 
     def get_record(self):
         func_inside_names = f"\"{',\n'.join(list(map(lambda x: x.name, self.func_inside)))}\""
@@ -44,7 +45,8 @@ class CBlock:
             if inside_block and re.match(end_pattern, line): 
                 break
 
-        return round(float(self.lines_covered)/float(self.num_of_lines) * 100,1) 
+        self.coverage_percent = round(float(self.lines_covered)/float(self.num_of_lines) * 100,1) 
+        return self.coverage_percent 
 
 
 
