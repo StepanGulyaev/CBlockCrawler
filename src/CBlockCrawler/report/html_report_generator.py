@@ -85,7 +85,6 @@ class HTMLReportGenerator(ReportGenerator):
         
 
         rows = []
-
         for one_file_records in self.all_records:
             for i in range(len(one_file_records)):
                 row_data = "".join(
